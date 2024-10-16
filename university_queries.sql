@@ -39,7 +39,17 @@ SELECT COUNT(*)
 FROM `departments`;
 
 -- 8. Quanti sono gli insegnanti che non hanno un numero di telefono? (50)
--- 9. Inserire nella tabella degli studenti un nuovo record con i propri dati (per il campo
--- degree_id, inserire un valore casuale)
+SELECT COUNT(*)
+FROM `teachers`
+WHERE `phone` IS NULL;
+
+-- 9. Inserire nella tabella degli studenti un nuovo record con i propri dati (per il campo degree_id, inserire un valore casuale)
+INSERT INTO `students` (`degree_id`, `name`, `surname`, `date_of_birth`, `fiscal_code`, `enrolment_date`, `registration_number`, `email`)
+VALUES (29, 'Marco', 'Cappellato', '2000-12-24', 'cppmrc00t2500h500n', '2000-12-24', '8033', 'cappellatomarco@gmail.com');
+
 -- 10. Cambiare il numero dell’ufficio del professor Pietro Rizzo in 126
+
+
 -- 11. Eliminare dalla tabella studenti il record creato precedentemente al punto 9
+DELETE FROM `students`
+WHERE `fiscal_code` = 'cppmrc00t2500h500n';
