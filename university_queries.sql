@@ -48,7 +48,9 @@ INSERT INTO `students` (`degree_id`, `name`, `surname`, `date_of_birth`, `fiscal
 VALUES (29, 'Marco', 'Cappellato', '2000-12-24', 'cppmrc00t2500h500n', '2000-12-24', '8033', 'cappellatomarco@gmail.com');
 
 -- 10. Cambiare il numero dell’ufficio del professor Pietro Rizzo in 126
-
+UPDATE `teachers`
+SET `office_number` = '126'
+WHERE `name` = 'Pietro' AND `surname` = 'Rizzo';
 
 -- 11. Eliminare dalla tabella studenti il record creato precedentemente al punto 9
 DELETE FROM `students`
