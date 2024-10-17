@@ -104,9 +104,8 @@ SELECT
 `exams`.`date`,
 `exams`.`hour`,
 
-
 COUNT(`exam_student`.`exam_id`) AS `attempts`,
-MAX(`exam_student`.`grade`) AS `max_grade`
+MAX(`exam_student`.`vote`) AS `max_vote`
 
 FROM `students`
 JOIN `exam_student`
@@ -114,7 +113,7 @@ ON `exam_student`.`student_id` = `students`.`id`
 JOIN `exams`
 ON `exams`.`id` = `exam_student`.`exam_id`
 GROUP BY `student_id`, `exam_id`;
--- HAVING `max_grade` >= 18;   ==> Se vogliamo filtrare i voti >= 18
+-- HAVING MAX(`exam_student`.`vote`) >= 18;  ==> Se vogliamo filtrare i voti >= 18
 
 
 /* QUERY CON GROUP BY */
@@ -133,6 +132,17 @@ FROM `teachers`
 GROUP BY `office_address`;
 
 -- 3. Calcolare la media dei voti di ogni appello d'esame
+SELECT
+`exams`.`id` AS `exam_id`,
+`exams`.`location`,
+`exams`.`date`,
+`exams`.`hour`,
+AVG(`exam_student`.`vote`) AS `average_grade`
+FROM `exams`
+JOIN `exam_student`
+ON `exams`.`id` = `exam_student`.`exam_id`
+GROUP BY `exam_id`;
+
 
 
 -- 4. Contare quanti corsi di laurea ci sono per ogni dipartimento
