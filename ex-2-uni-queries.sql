@@ -137,13 +137,11 @@ SELECT
 `exams`.`location`,
 `exams`.`date`,
 `exams`.`hour`,
-AVG(`exam_student`.`vote`) AS `average_grade`
+AVG(`exam_student`.`vote`) AS `average_vote`
 FROM `exams`
 JOIN `exam_student`
 ON `exams`.`id` = `exam_student`.`exam_id`
 GROUP BY `exam_id`;
-
-
 
 -- 4. Contare quanti corsi di laurea ci sono per ogni dipartimento
 SELECT
