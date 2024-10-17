@@ -13,7 +13,7 @@ ON `degrees`.`department_id` = `departments`.`id`
 WHERE `departments`.`name` = 'Dipartimento di Neuroscienze' 
 AND `degrees`.`level` = 'Magistrale';
 
--- 3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
+-- 3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44) (11)
 SELECT *
 FROM `teachers`
 JOIN `course_teacher` 
@@ -45,6 +45,49 @@ ON `students`.`degree_id` = `degrees`.`id`
 JOIN `departments`
 ON `degrees`.`department_id` = `departments`.`id`
 ORDER BY `students`.`surname`, `students`.`name`;
--- 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+
+-- 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti (1317)
+SELECT 
+`degrees`.`id` AS `degree_id`,
+`degrees`.`name` AS `degree_name`,
+`degrees`.`level`,
+
+`courses`.`id` AS `course_id`,
+`courses`.`name` AS `course_name`,
+`courses`.`cfu`,
+`courses`.`period`,
+
+`teachers`.`id` AS `teacher_id`,
+`teachers`.`name` AS `teacher_name`,
+`teachers`.`surname` AS `teacher_surname`,
+`teachers`.`office_number`
+
+FROM `degrees`
+JOIN `courses`
+ON `courses`.`degree_id` = `degrees`.`id`
+JOIN `course_teacher`
+ON `course_teacher`.`course_id` = `courses`.`id`
+JOIN `teachers`
+ON `course_teacher`.`teacher_id` = `teachers`.`id`;
+
 -- 6. Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)
+SELECT DISTINCT
+`teachers`.`id` AS `teacher_id`,
+`teachers`.`name` AS `teacher_name`,
+`teachers`.`surname` AS `teacher_surname`,
+`teachers`.`office_number`,
+
+`departments`.`id` AS `department_id`,
+`departments`.`name` AS `department_name`
+
+FROM `departments`
+JOIN `degrees`
+ON `degrees`.`department_id`=  `departments`.`id`
+JOIN `courses`
+ON `courses`.`degree_id`= `degrees`.`id` 
+JOIN `course_teacher`
+ON `course_teacher`.`course_id` = `courses`.`id`
+JOIN `teachers`
+ON `course_teacher`.`teacher_id` = `teachers`.`id`
+WHERE `departments`.`name` = 'Dipartimento di Matematica';
 -- 7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
