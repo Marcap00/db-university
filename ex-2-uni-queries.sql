@@ -1,3 +1,4 @@
+/* QUERY CON JOIN */
 -- 1. Selezionare tutti gli studenti iscritti al Corso di Laurea in Economia (68)
 SELECT *
 FROM `degrees`
@@ -91,3 +92,31 @@ JOIN `teachers`
 ON `course_teacher`.`teacher_id` = `teachers`.`id`
 WHERE `departments`.`name` = 'Dipartimento di Matematica';
 -- 7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
+
+
+/* QUERY CON GROUP BY */
+
+-- 1. Contare quanti iscritti ci sono stati ogni anno
+SELECT YEAR(`enrolment_date`) AS `year`, 
+COUNT(`id`) AS `number_of_students`
+FROM `students`
+GROUP BY `year`;
+
+-- 2. Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+SELECT 
+`office_address`,
+COUNT(`id`) AS `teachers`
+FROM `teachers`
+GROUP BY `office_address`;
+
+-- 3. Calcolare la media dei voti di ogni appello d'esame
+
+
+-- 4. Contare quanti corsi di laurea ci sono per ogni dipartimento
+SELECT
+`departments`.`name` AS `department_name`,
+COUNT(`degrees`.`id`) AS `number_of_degrees`
+FROM `departments`
+JOIN `degrees`
+ON `degrees`.`department_id` = `departments`.`id`
+GROUP BY `department_name`;
